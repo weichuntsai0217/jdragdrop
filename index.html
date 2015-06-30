@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>jdragdrop.js DEMO</title>
+        <style>
+            div, h1, h2{
+                padding: 0;
+                margin: 0;
+            }
+            .heading {
+                text-align: center;
+                margin-top: 50px;
+            }
+            .wrap {
+                width: 680px;
+                height: 80px;
+                border: 2px solid #bbb;
+                margin: 30px auto;
+                position: relative;
+            }
+            .wrap h2 {
+                display: block;
+                width: 300px;
+                height: 26px;
+                padding: 10px;
+                border: 2px dashed #bbb;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                margin-left: -160px; 
+                margin-top: -23px;
+                color: #bbb;
+                text-align: center;
+            }
+            .summary {
+                width: 680px;
+                min-height: 80px;
+                margin: 30px auto;
+                border: 2px solid #bbb;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="heading"><h1>jdragdrop.js DEMO</h1></div>
+        <div class="wrap">
+            <h2>Drag & Drop files here.</h2>
+        </div>
+        <div class="summary"></div>
+        <script type="text/javascript" src="lib/jquery/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="jdragdrop-1.0.0/jdragdrop.js"></script>
+        <script>
+            $(document).on('ready', function(e){
+                var option = {
+                        'customEvent': 'mydropEvent',
+                        'handle': '.summary'
+                    },
+                    dropObj = {};
+                $('.wrap').dnd( dropObj, option);
+                $(option.handle).on(option.customEvent, function(e){
+                    var files = dropObj.files;
+                    for (var i=0; i< files.length; i++){
+                        var f = files[i],
+                            info = '<p>' + 'File: ' + f.name + ' is dropped.'+ '</p><br>';
+                        $(this).append(info);
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
